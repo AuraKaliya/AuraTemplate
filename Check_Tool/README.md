@@ -2,21 +2,49 @@
 
 Templates that AIDS in performing various checks
 
+#### 2024.8.20
 
+update check-function macro
 
-#### Check Function in Class
+add check-property macro 
+
+* Class
+
+    ```cpp
+    class Test
+    {
+    public:
+        void testFunc(){};
+        void testFunc(int){};
+        int testFunc(double){return 0;};
+        int m_id;
+        char* m_name;
+    }
+    ```
 
 * Register
 
-    ```c++
-    REGISTERFUNCTIONFORCHECK(is_init)
+    ```cpp
+    //Function
+    REGISTER_FUNCTION_FOR_CHECK(testFunc)
+    //Property
+    REGISTER_PROPERTY_FOR_CHECK(m_name)
+    REGISTER_PROPERTY_FOR_CHECK(m_id)
     ```
 
 * Check
 
-    ```c++
-    CHECKCLASSFUNCTION(T,is_init,bool)
+    ```cpp
+    int main() {
+        constexpr bool result = CHECK_FUNCTION_EXIST(Test, myFunc, int,double);
+        std::cout << (result ? "Function exists" : "Function does not exist") << std::endl;
+        constexpr bool mResult = CHECK_PROPERTY_EXIST(Test, m_id, unsigned int);
+        std::cout << (mResult ? "Property exists" : "Property does not exist") << std::endl;
+        return 0;
+    }
     ```
 
     
+
+
 
