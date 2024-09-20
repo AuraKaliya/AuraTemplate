@@ -48,3 +48,35 @@ add check-property macro
 
 
 
+# CheckSameType
+
+* Func
+
+    ```cpp
+    template<typename T,typename... Ts>
+    constexpr void func()
+    {
+        if constexpr (isSameType<T,Ts...>())
+        {
+            std::cout << "same." << std::endl;
+        }
+        else
+        {
+            std::cout << "not same." << std::endl;
+        }
+    }
+    ```
+
+* Check
+
+    ```cpp
+    
+    int main()
+    {
+        func<int,  int>(); // "same."
+        func<int, double, int>(); // "not same."
+    	return 0;
+    }
+    ```
+
+    
